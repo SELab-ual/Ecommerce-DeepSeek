@@ -1,0 +1,24 @@
+<svg width="150" height="40" viewBox="0 0 150 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Book icon -->
+    <rect x="5" y="8" width="24" height="28" rx="2" fill="#0066CC" stroke="#004999" stroke-width="1.5"/>
+    <path d="M10 12H24" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M10 16H22" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M10 20H20" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M10 24H18" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M10 28H16" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+    
+    <!-- Book spine detail -->
+    <rect x="22" y="10" width="4" height="24" fill="#004999" rx="1"/>
+    
+    <!-- Company name -->
+    <text x="40" y="26" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#333333">Sprint</text>
+    <text x="40" y="38" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#0066CC">Shop</text>
+    
+    <!-- Version indicator -->
+    <circle cx="132" cy="12" r="6" fill="#FF6B6B"/>
+    <text x="132" y="16" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="white" text-anchor="middle">v1</text>
+    
+    <!-- Decorative elements -->
+    <path d="M110 28 L120 28 L115 35 Z" fill="#FFD93D" opacity="0.3"/>
+    <circle cx="125" cy="30" r="3" fill="#6BCB77" opacity="0.3"/>
+</svg>

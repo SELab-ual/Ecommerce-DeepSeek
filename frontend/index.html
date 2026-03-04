@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sprint 1 E-commerce Platform</title>
+    <meta name="description" content="Foundation e-commerce platform with core shopping functionality">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico">
+</head>
+<body>
+    <!-- Header (ID 550, 171) -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="/">
+                        <img src="/assets/images/logo.svg" alt="Sprint 1 Shop" height="40">
+                    </a>
+                </div>
+                
+                <nav class="main-nav" aria-label="Main navigation">
+                    <ul>
+                        <li><a href="/" class="active">Home</a></li>
+                        <li><a href="/products">Products</a></li>
+                        <li><a href="/about">About</a></li>
+                        <li><a href="/contact">Contact</a></li>
+                    </ul>
+                </nav>
+                
+                <div class="header-actions">
+                    <!-- Search -->
+                    <button class="icon-button" id="searchToggle" aria-label="Search">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                    </button>
+                    
+                    <!-- User Menu -->
+                    <div class="user-menu">
+                        <button class="icon-button" id="userMenuToggle" aria-label="User menu">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                        </button>
+                        <div class="dropdown-menu" id="userDropdown">
+                            <div class="dropdown-header" id="userInfo">
+                                <span class="user-name">Guest</span>
+                                <span class="user-email"></span>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <a href="/login" class="dropdown-item" id="loginLink">Login</a>
+                            <a href="/register" class="dropdown-item" id="registerLink">Register</a>
+                            <a href="#" class="dropdown-item" id="logoutLink" style="display: none;">Logout</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Cart -->
+                    <a href="/cart" class="cart-button" id="cartButton">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="9" cy="21" r="1"></circle>
+                            <circle cx="20" cy="21" r="1"></circle>
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                        </svg>
+                        <span class="cart-count" id="cartCount">0</span>
+                        <span class="cart-total" id="cartTotal">€0.00</span>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Search Bar (ID 586) -->
+            <div class="search-bar" id="searchBar" style="display: none;">
+                <div class="search-container">
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        placeholder="Search products by title, author, or ISBN..."
+                        aria-label="Search products"
+                    >
+                    <select id="sortSelect" aria-label="Sort by">
+                        <option value="relevance">Relevance</option>
+                        <option value="title">Title A-Z</option>
+                        <option value="price_asc">Price: Low to High</option>
+                        <option value="price_desc">Price: High to Low</option>
+                    </select>
+                    <button id="searchButton" class="primary-button">Search</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent">
+        <!-- Dynamic content will be loaded here -->
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>About Us</h4>
+                    <p>Your trusted source for quality books and publications.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Customer Service</h4>
+                    <ul>
+                        <li><a href="/contact">Contact</a></li>
+                        <li><a href="/shipping">Shipping Info</a></li>
+                        <li><a href="/returns">Returns</a></li>
+                        <li><a href="/faq">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook">FB</a>
+                        <a href="#" aria-label="Twitter">TW</a>
+                        <a href="#" aria-label="Instagram">IG</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Sprint 1 E-commerce. All rights reserved.</p>
+                <p class="security-badge">🔒 SSL Secured</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Templates -->
+    <template id="product-list-template">
+        <div class="container">
+            <h1 class="page-title">Products</h1>
+            <div class="product-grid" id="productGrid"></div>
+            <div class="pagination" id="pagination"></div>
+        </div>
+    </template>
+
+    <template id="product-detail-template">
+        <div class="container">
+            <nav aria-label="breadcrumb" class="breadcrumb">
+                <a href="/">Home</a> &gt;
+                <a href="/products">Products</a> &gt;
+                <span id="productTitleBreadcrumb"></span>
+            </nav>
+            
+            <div class="product-detail">
+                <div class="product-image">
+                    <img 
+                        id="productCover" 
+                        src="/assets/images/placeholder-cover.jpg" 
+                        alt="Product cover"
+                        onerror="this.src='/assets/images/placeholder-cover.jpg'"
+                    >
+                </div>
+                
+                <div class="product-info">
+                    <h1 id="productTitle" class="product-title"></h1>
+                    <p id="productAuthor" class="product-author"></p>
+                    
+                    <div class="product-metadata">
+                        <p id="productIsbn"></p>
+                        <p id="productPublisher"></p>
+                        <p id="productPublicationDate"></p>
+                    </div>
+                    
+                    <div class="product-price" id="productPrice"></div>
+                    
+                    <div class="product-actions">
+                        <div class="quantity-selector">
+                            <button class="quantity-btn" id="decreaseQty">-</button>
+                            <input 
+                                type="number" 
+                                id="quantity" 
+                                value="1" 
+                                min="1" 
+                                max="99"
+                                aria-label="Quantity"
+                            >
+                            <button class="quantity-btn" id="increaseQty">+</button>
+                        </div>
+                        
+                        <button class="primary-button add-to-cart-btn" id="addToCartBtn">
+                            Add to Cart
+                        </button>
+                    </div>
+                    
+                    <div class="product-description" id="productDescription"></div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="cart-template">
+        <div class="container">
+            <h1 class="page-title">Shopping Cart</h1>
+            
+            <div class="cart-container">
+                <div class="cart-items" id="cartItems">
+                    <!-- Cart items will be inserted here -->
+                </div>
+                
+                <div class="cart-summary">
+                    <h2>Order Summary</h2>
+                    <div class="summary-row">
+                        <span>Subtotal:</span>
+                        <span id="cartSubtotal">€0.00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Shipping:</span>
+                        <span id="cartShipping">€0.00</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total:</span>
+                        <span id="cartTotal">€0.00</span>
+                    </div>
+                    
+                    <button class="primary-button checkout-btn" id="checkoutBtn">
+                        Proceed to Checkout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="checkout-template">
+        <div class="container">
+            <h1 class="page-title">Checkout</h1>
+            
+            <div class="checkout-container">
+                <form id="checkoutForm" class="checkout-form">
+                    <h2>Shipping Address</h2>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name *</label>
+                            <input type="text" id="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name *</label>
+                            <input type="text" id="lastName" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="addressLine1">Address Line 1 *</label>
+                        <input type="text" id="addressLine1" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="addressLine2">Address Line 2</label>
+                        <input type="text" id="addressLine2">
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="city">City *</label>
+                            <input type="text" id="city" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="postalCode">Postal Code *</label>
+                            <input type="text" id="postalCode" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="country">Country *</label>
+                        <select id="country" required>
+                            <option value="">Select Country</option>
+                            <option value="DE">Germany</option>
+                            <option value="AT">Austria</option>
+                            <option value="CH">Switzerland</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input type="tel" id="phone">
+                    </div>
+                    
+                    <h2>Payment Method</h2>
+                    <div class="payment-methods">
+                        <label class="payment-option">
+                            <input type="radio" name="paymentMethod" value="invoice" checked>
+                            <span>Invoice</span>
+                        </label>
+                        <label class="payment-option">
+                            <input type="radio" name="paymentMethod" value="credit_card">
+                            <span>Credit Card</span>
+                        </label>
+                        <label class="payment-option">
+                            <input type="radio" name="paymentMethod" value="bank_transfer">
+                            <span>Bank Transfer</span>
+                        </label>
+                    </div>
+                    
+                    <div class="form-group terms-group">
+                        <label>
+                            <input type="checkbox" id="acceptTerms" required>
+                            I accept the <a href="/terms">terms and conditions</a>
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="primary-button place-order-btn">
+                        Place Order
+                    </button>
+                </form>
+                
+                <div class="order-summary">
+                    <h3>Your Order</h3>
+                    <div id="checkoutItems"></div>
+                    <div class="summary-row">
+                        <span>Subtotal:</span>
+                        <span id="checkoutSubtotal">€0.00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Shipping:</span>
+                        <span id="checkoutShipping">€5.00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>VAT (19%):</span>
+                        <span id="checkoutVat">€0.00</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total:</span>
+                        <span id="checkoutTotal">€0.00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="order-confirmation-template">
+        <div class="container confirmation-page">
+            <div class="confirmation-box">
+                <div class="success-icon">✓</div>
+                <h1>Thank You for Your Order!</h1>
+                <p class="order-number">Order #<span id="confirmationOrderNumber"></span></p>
+                <p>A confirmation email has been sent to <span id="confirmationEmail"></span></p>
+                
+                <div class="order-details">
+                    <h2>Order Summary</h2>
+                    <div id="confirmationItems"></div>
+                    
+                    <div class="totals">
+                        <div class="summary-row">
+                            <span>Subtotal:</span>
+                            <span id="confirmationSubtotal"></span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Shipping:</span>
+                            <span id="confirmationShipping"></span>
+                        </div>
+                        <div class="summary-row">
+                            <span>VAT:</span>
+                            <span id="confirmationVat"></span>
+                        </div>
+                        <div class="summary-row total">
+                            <span>Total:</span>
+                            <span id="confirmationTotal"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="confirmation-actions">
+                    <a href="/" class="secondary-button">Continue Shopping</a>
+                    <button class="primary-button" onclick="window.print()">Print Receipt</button>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="login-template">
+        <div class="container auth-page">
+            <div class="auth-box">
+                <h1>Login</h1>
+                
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="loginUsername">Username or Email</label>
+                        <input type="text" id="loginUsername" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" required>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="primary-button">Login</button>
+                    </div>
+                    
+                    <p class="auth-redirect">
+                        Don't have an account? <a href="/register">Register here</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </template>
+
+    <template id="register-template">
+        <div class="container auth-page">
+            <div class="auth-box">
+                <h1>Create Account</h1>
+                
+                <form id="registerForm">
+                    <div class="form-group">
+                        <label for="registerEmail">Email *</label>
+                        <input type="email" id="registerEmail" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="registerUsername">Username *</label>
+                        <input type="text" id="registerUsername" required minlength="3" maxlength="50">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="registerFullName">Full Name</label>
+                        <input type="text" id="registerFullName">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="registerPassword">Password *</label>
+                        <input type="password" id="registerPassword" required minlength="8">
+                        <small class="hint">Minimum 8 characters</small>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="primary-button">Register</button>
+                    </div>
+                    
+                    <p class="auth-redirect">
+                        Already have an account? <a href="/login">Login here</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </template>
+
+<img id="productCover" src="/assets/images/placeholder-cover.svg" alt="Product cover">
+<!-- JavaScript -->
+    <script src="/assets/js/app.js"></script>
+</body>
+</html>
